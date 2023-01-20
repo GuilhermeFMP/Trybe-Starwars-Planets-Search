@@ -24,8 +24,30 @@ function TableProvider({ children }) {
     setFilter(filtered);
   };
 
+  const sortResults = (desc, operacao, number) => {
+    if (operacao === 'menor que') {
+      const filtered = planets.filter((planet) => (
+        Number(planet[desc]) < Number(number)
+      ));
+      console.log(filtered);
+      setFilter(filtered);
+    }
+    if (operacao === 'maior que') {
+      const filtered = planets.filter((planet) => (
+        Number(planet[desc]) > Number(number)
+      ));
+      setFilter(filtered);
+    }
+    if (operacao === 'igual a') {
+      const filtered = planets.filter((planet) => (
+        Number(planet[desc]) === Number(number)
+      ));
+      setFilter(filtered);
+    }
+  };
+
   const values = useMemo(() => ({
-    planets, filter, filterResults,
+    planets, filter, filterResults, sortResults,
   }), [planets, filter]);
 
   return (

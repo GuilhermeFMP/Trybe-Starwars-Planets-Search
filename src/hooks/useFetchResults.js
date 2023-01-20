@@ -7,7 +7,6 @@ const useFetchResults = () => {
       delete planet.residents;
       return planet;
     });
-    console.log(resultados);
     return resultados;
   };
   return { fetchResults };
