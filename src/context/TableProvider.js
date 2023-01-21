@@ -4,9 +4,13 @@ import useFetchResults from '../hooks/useFetchResults';
 import TableContext from './TableContext';
 
 function TableProvider({ children }) {
+  const arrayData = ['population', 'orbital_period',
+    'diameter', 'rotation_period', 'surface_water'];
   const [planets, setPlanets] = useState([]);
   const [filter, setFilter] = useState([]);
   const { fetchResults } = useFetchResults();
+  const [options, setOptions] = useState(arrayData);
+  const [searchSelect, setSearchSelect] = useState(options[0]);
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -17,6 +21,14 @@ function TableProvider({ children }) {
     fetchPlanets();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const selectChange = ({ target: { value } }, optional) => {
+    if (optional) {
+      optional(value);
+      return;
+    }
+    setSearchSelect(value);
+  };
 
   const filterResults = (name) => {
     const filtered = planets.filter((planet) => (
@@ -46,10 +58,25 @@ function TableProvider({ children }) {
     }
   };
 
+  const renderOptions = (option) => {
+    const newOptions = options.filter((op) => (
+      op !== option
+    ));
+    setOptions(newOptions);
+    setSearchSelect(newOptions[0]);
+  };
+
   const values = useMemo(() => ({
-    planets, filter, filterResults, sortResults,
+    planets,
+    filter,
+    options,
+    searchSelect,
+    filterResults,
+    sortResults,
+    renderOptions,
+    selectChange,
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [planets, filter]);
+  }), [planets, filter, options, searchSelect]);
 
   return (
     <TableContext.Provider value={ values }>

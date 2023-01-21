@@ -2,27 +2,33 @@ import React, { useState, useContext } from 'react';
 import tableContext from '../context/TableContext';
 
 function SortResults() {
-  const { sortResults } = useContext(tableContext);
-  const [category, setCategory] = useState('population');
+  const {
+    sortResults,
+    options,
+    renderOptions,
+    searchSelect,
+    selectChange,
+  } = useContext(tableContext);
   const [expression, setExpression] = useState('maior que');
   const [number, setNumber] = useState(0);
 
   const handleClick = () => {
-    sortResults(category, expression, number);
+    sortResults(searchSelect, expression, number);
+    renderOptions(searchSelect);
   };
+
+  const showOptions = () => options.map((opt) => (
+    <option key={ opt } value={ opt }>{ opt }</option>
+  ));
 
   return (
     <div>
       <select
-        value={ category }
+        value={ searchSelect }
         data-testid="column-filter"
-        onChange={ ({ target: { value } }) => setCategory(value) }
+        onChange={ selectChange }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        { showOptions() }
       </select>
       <select
         value={ expression }
