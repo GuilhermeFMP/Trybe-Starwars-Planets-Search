@@ -8,6 +8,7 @@ function FilterInput() {
 
   useEffect(() => {
     filterResults(text.value);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text.value]);
 
   return (

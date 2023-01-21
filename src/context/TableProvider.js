@@ -15,6 +15,7 @@ function TableProvider({ children }) {
       setFilter(fetch);
     };
     fetchPlanets();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filterResults = (name) => {
@@ -47,6 +48,7 @@ function TableProvider({ children }) {
 
   const values = useMemo(() => ({
     planets, filter, filterResults, sortResults,
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [planets, filter]);
 
   return (
