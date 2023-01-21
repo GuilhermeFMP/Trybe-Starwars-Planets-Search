@@ -26,20 +26,19 @@ function TableProvider({ children }) {
 
   const sortResults = (desc, operacao, number) => {
     if (operacao === 'menor que') {
-      const filtered = planets.filter((planet) => (
+      const filtered = filter.filter((planet) => (
         Number(planet[desc]) < Number(number)
       ));
-      console.log(filtered);
       setFilter(filtered);
     }
     if (operacao === 'maior que') {
-      const filtered = planets.filter((planet) => (
+      const filtered = filter.filter((planet) => (
         Number(planet[desc]) > Number(number)
       ));
       setFilter(filtered);
     }
     if (operacao === 'igual a') {
-      const filtered = planets.filter((planet) => (
+      const filtered = filter.filter((planet) => (
         Number(planet[desc]) === Number(number)
       ));
       setFilter(filtered);
