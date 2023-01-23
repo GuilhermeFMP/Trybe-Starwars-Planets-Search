@@ -8,6 +8,9 @@ function SortResults() {
     renderOptions,
     searchSelect,
     selectChange,
+    listFilter,
+    buttonRenewal,
+    removeAllFilters,
   } = useContext(tableContext);
   const [expression, setExpression] = useState('maior que');
   const [number, setNumber] = useState(0);
@@ -52,6 +55,38 @@ function SortResults() {
       >
         Filtrar
       </button>
+      <div>
+        <ul>
+          { listFilter.map((filter, index) => {
+            const newObj = {
+              desc: filter[0],
+              operacao: expression,
+              number,
+            };
+            return (
+              <li
+                key={ index }
+                data-testid="filter"
+              >
+                <span>{ filter }</span>
+                <button
+                  type="button"
+                  onClick={ () => { buttonRenewal(filter, newObj); } }
+                >
+                  Excluir
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+        <button
+          data-testid="button-remove-filters"
+          type="button"
+          onClick={ removeAllFilters }
+        >
+          Remover todas filtragens
+        </button>
+      </div>
     </div>
   );
 }
