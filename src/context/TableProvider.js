@@ -26,11 +26,7 @@ function TableProvider({ children }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const selectChange = ({ target: { value } }, optional) => {
-    if (optional) {
-      optional(value);
-      return;
-    }
+  const selectChange = ({ target: { value } }) => {
     setSearchSelect(value);
   };
 
